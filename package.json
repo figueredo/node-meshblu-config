@@ -1,0 +1,25 @@
+{
+  "name": "meshblu-config",
+  "version": "1.0.0",
+  "description": "Meshblu Config from environment or JSON file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/octoblu/meshblu-config.git"
+  },
+  "keywords": [
+    "Meshblu"
+  ],
+  "author": "Octoblu Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/octoblu/meshblu-config/issues"
+  },
+  "homepage": "https://github.com/octoblu/meshblu-config",
+  "dependencies": {
+    "coffee-script": "^1.9.2"
+  }
+}
