@@ -12,6 +12,9 @@ npm install meshblu-config
 ```js
 var MeshbluConfig = require('meshblu-config');
 var meshbluConfig = new MeshbluConfig({});
+
+var Meshblu = require('meshblu');
+var meshblu = Meshblu.createConnection(meshbluConfig.toJSON());
 ```
 
 ## Options (showing default values)
