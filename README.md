@@ -14,14 +14,14 @@ var MeshbluConfig = require('meshblu-config');
 var meshbluConfig = new MeshbluConfig({});
 ```
 
-## Options
+## Options (showing default values)
 
-+-------------------+------------------+
-| Option            | Default Value    |
-+===================+==================+
-| `filename`        | `./meshblu.json` |
-| `uuid_env_name`   | `MESHBLU_UUID`   |
-| `token_env_name`  | `MESHBLU_TOKEN`  |
-| `server_env_name` | `MESHBLU_SERVER` |
-| `port_env_name`   | `MESHBLU_PORT`   |
-+-------------------+------------------+
+```js
+{
+  filename: './meshblu.json',
+  uuid_env_name: process.env.MESHBLU_UUID,
+  token_env_name: process.env.MESHBLU_TOKEN,
+  server_env_name: process.env.MESHBLU_SERVER,
+  port_env_name: process.env.MESHBLU_PORT
+}
+```
