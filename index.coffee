@@ -14,6 +14,9 @@ class Config
 
   toJSON: =>
     try meshbluJSON = @parseMeshbluJSON()
+    meshbluJSON        ?= {}
+    meshbluJSON.server ?= meshbluJSON.host
+    meshbluJSON.host   ?= meshbluJSON.server
 
     _.defaults {
       uuid:   process.env[@uuid_env_name]
