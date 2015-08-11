@@ -32,6 +32,14 @@ class MeshbluConfig
     meshbluJSON.server   ?= meshbluJSON.hostname
     meshbluJSON.hostname ?= meshbluJSON.server
     meshbluJSON.host     ?= "#{meshbluJSON.hostname}:#{meshbluJSON.port}"
-    return meshbluJSON
+    return @compact meshbluJSON
+
+  compact: (obj) =>
+    compactedObj = {}
+
+    _.each obj, (value, key) =>
+      compactedObj[key] = value if value?
+
+    compactedObj
 
 module.exports = MeshbluConfig

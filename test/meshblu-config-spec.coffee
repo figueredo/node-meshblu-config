@@ -1,4 +1,5 @@
 path = require 'path'
+_    = require 'lodash'
 MeshbluConfig = require '../lib/meshblu-config'
 
 describe 'MeshbluConfig', ->
@@ -19,3 +20,12 @@ describe 'MeshbluConfig', ->
 
       it 'should set the host', ->
         expect(@result.host).to.deep.equal 'localhost:3000'
+
+    describe 'passing in a file with no protocol', ->
+      beforeEach ->
+        @sut = new MeshbluConfig filename: path.join(__dirname, 'no-protocol-meshblu.json')
+        @result = @sut.toJSON()
+
+      it 'should not set the protocol', ->
+        expect(@result.protocol).not.to.exist
+        expect(@result).not.to.have.key 'protocol'
