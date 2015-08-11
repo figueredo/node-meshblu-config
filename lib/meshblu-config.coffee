@@ -1,12 +1,13 @@
 _ = require 'lodash'
 fs = require 'fs'
 
-class Config
+class MeshbluConfig
   constructor: (@options={}) ->
     @filename = @options.filename ? './meshblu.json'
     @uuid_env_name = @options.uuid_env_name ? 'MESHBLU_UUID'
     @token_env_name = @options.token_env_name ? 'MESHBLU_TOKEN'
     @server_env_name = @options.server_env_name ? 'MESHBLU_SERVER'
+    @hostname_env_name = @options.hostname_env_name ? 'MESHBLU_HOSTNAME'
     @port_env_name = @options.port_env_name ? 'MESHBLU_PORT'
     @protocol_env_name = @options.port_env_name ? 'MESHBLU_PROTOCOL'
     @private_key_env_name = @options.port_env_name ? 'MESHBLU_PRIVATE_KEY'
@@ -16,17 +17,21 @@ class Config
 
   toJSON: =>
     try meshbluJSON = @parseMeshbluJSON()
-    meshbluJSON        ?= {}
-    meshbluJSON.server ?= meshbluJSON.host
-    meshbluJSON.host   ?= meshbluJSON.server
+    meshbluJSON          ?= {}
 
-    _.defaults {
+    meshbluJSON = _.defaults {
       uuid: process.env[@uuid_env_name]
       token: process.env[@token_env_name]
       server: process.env[@server_env_name]
+      hostname: process.env[@hostname_env_name]
       port: process.env[@port_env_name]
       protocol: process.env[@protocol_env_name]
       privateKey: process.env[@private_key_env_name]
     }, meshbluJSON
 
-module.exports = Config
+    meshbluJSON.server   ?= meshbluJSON.hostname
+    meshbluJSON.hostname ?= meshbluJSON.server
+    meshbluJSON.host     ?= "#{meshbluJSON.hostname}:#{meshbluJSON.port}"
+    return meshbluJSON
+
+module.exports = MeshbluConfig
