@@ -1,6 +1,6 @@
 {
   "name": "meshblu-config",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Meshblu Config from environment or JSON file",
   "main": "index.js",
   "scripts": {

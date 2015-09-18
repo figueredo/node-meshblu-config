@@ -31,7 +31,7 @@ class MeshbluConfig
 
     meshbluJSON.server   ?= meshbluJSON.hostname
     meshbluJSON.hostname ?= meshbluJSON.server
-    meshbluJSON.host     ?= "#{meshbluJSON.hostname}:#{meshbluJSON.port}"
+    meshbluJSON.host     ?= "#{meshbluJSON.hostname}:#{meshbluJSON.port}" if meshbluJSON.hostname?
     return @compact meshbluJSON
 
   compact: (obj) =>
