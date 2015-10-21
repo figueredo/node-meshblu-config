@@ -9,8 +9,8 @@ class MeshbluConfig
     @server_env_name = @options.server_env_name ? 'MESHBLU_SERVER'
     @hostname_env_name = @options.hostname_env_name ? 'MESHBLU_HOSTNAME'
     @port_env_name = @options.port_env_name ? 'MESHBLU_PORT'
-    @protocol_env_name = @options.port_env_name ? 'MESHBLU_PROTOCOL'
-    @private_key_env_name = @options.port_env_name ? 'MESHBLU_PRIVATE_KEY'
+    @protocol_env_name = @options.protocol_env_name ? 'MESHBLU_PROTOCOL'
+    @private_key_env_name = @options.private_key_env_name ? 'MESHBLU_PRIVATE_KEY'
 
   parseMeshbluJSON: ->
     JSON.parse fs.readFileSync @filename
