@@ -39,6 +39,7 @@ class MeshbluConfig
 
     _.each obj, (value, key) =>
       compactedObj[key] = value if value?
+      compactedObj[key] = value.trim() if value?.trim?
 
     compactedObj
 
