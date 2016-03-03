@@ -2,15 +2,15 @@ _ = require 'lodash'
 fs = require 'fs'
 
 class MeshbluConfig
-  constructor: (@options={}) ->
-    @filename = @options.filename ? './meshblu.json'
-    @uuid_env_name = @options.uuid_env_name ? 'MESHBLU_UUID'
-    @token_env_name = @options.token_env_name ? 'MESHBLU_TOKEN'
-    @server_env_name = @options.server_env_name ? 'MESHBLU_SERVER'
-    @hostname_env_name = @options.hostname_env_name ? 'MESHBLU_HOSTNAME'
-    @port_env_name = @options.port_env_name ? 'MESHBLU_PORT'
-    @protocol_env_name = @options.protocol_env_name ? 'MESHBLU_PROTOCOL'
-    @private_key_env_name = @options.private_key_env_name ? 'MESHBLU_PRIVATE_KEY'
+  constructor: (@auth={}, options={}) ->
+    @filename = options.filename ? './meshblu.json'
+    @uuid_env_name = options.uuid_env_name ? 'MESHBLU_UUID'
+    @token_env_name = options.token_env_name ? 'MESHBLU_TOKEN'
+    @server_env_name = options.server_env_name ? 'MESHBLU_SERVER'
+    @hostname_env_name = options.hostname_env_name ? 'MESHBLU_HOSTNAME'
+    @port_env_name = options.port_env_name ? 'MESHBLU_PORT'
+    @protocol_env_name = options.protocol_env_name ? 'MESHBLU_PROTOCOL'
+    @private_key_env_name = options.private_key_env_name ? 'MESHBLU_PRIVATE_KEY'
 
   parseMeshbluJSON: ->
     JSON.parse fs.readFileSync @filename
@@ -19,7 +19,7 @@ class MeshbluConfig
     try meshbluJSON = @parseMeshbluJSON()
     meshbluJSON          ?= {}
 
-    meshbluJSON = _.defaults {
+    meshbluJSON = _.defaults @auth, {
       uuid: process.env[@uuid_env_name]
       token: process.env[@token_env_name]
       server: process.env[@server_env_name]
