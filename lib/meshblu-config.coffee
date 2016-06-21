@@ -27,6 +27,7 @@ class MeshbluConfig
       port: process.env[@port_env_name]
       protocol: process.env[@protocol_env_name]
       privateKey: process.env[@private_key_env_name]
+      resolveSrv: true
     }, meshbluJSON
 
     meshbluJSON.server   ?= meshbluJSON.hostname
