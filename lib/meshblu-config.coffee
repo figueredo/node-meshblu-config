@@ -11,6 +11,7 @@ class MeshbluConfig
     @port_env_name = options.port_env_name ? 'MESHBLU_PORT'
     @protocol_env_name = options.protocol_env_name ? 'MESHBLU_PROTOCOL'
     @private_key_env_name = options.private_key_env_name ? 'MESHBLU_PRIVATE_KEY'
+    @resolve_srv_env_name = options.private_key_env_name ? 'MESHBLU_RESOLVE_SRV'
 
   parseMeshbluJSON: ->
     JSON.parse fs.readFileSync @filename
@@ -27,7 +28,7 @@ class MeshbluConfig
       port: process.env[@port_env_name]
       protocol: process.env[@protocol_env_name]
       privateKey: process.env[@private_key_env_name]
-      resolveSrv: true
+      resolveSrv: process.env[@resolve_srv_env_name] == 'true'
     }, meshbluJSON
 
     meshbluJSON.server   ?= meshbluJSON.hostname
