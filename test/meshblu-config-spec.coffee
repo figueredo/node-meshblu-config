@@ -12,14 +12,8 @@ describe 'MeshbluConfig', ->
       it 'should set the hostname', ->
         expect(@result.hostname).to.deep.equal 'localhost'
 
-      it 'should set the server', ->
-        expect(@result.server).to.deep.equal 'localhost'
-
       it 'should set the port', ->
         expect(@result.port).to.deep.equal '3000'
-
-      it 'should set the host', ->
-        expect(@result.host).to.deep.equal 'localhost:3000'
 
     describe 'passing in a file with no protocol', ->
       beforeEach ->
@@ -38,6 +32,5 @@ describe 'MeshbluConfig', ->
       it 'should set the defaults from the file, but keep values from the constructor', ->
         expect(@result).to.containSubset
           port: '3000'
-          server: 'localhost'
           uuid: 'better-uuid'
           token: 'better-token'
