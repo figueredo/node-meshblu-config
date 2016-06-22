@@ -35,7 +35,7 @@ class MeshbluConfig
 
       service: process.env[@service_env_name]
       domain:  process.env[@domain_env_name]
-      secure:  _.lowerCase(process.env[@secure_env_name]) != 'false'
+      secure:  process.env[@secure_env_name] && process.env[@secure_env_name] != 'false'
 
       privateKey: process.env[@private_key_env_name]
       resolveSrv: process.env[@resolve_srv_env_name] == 'true'
