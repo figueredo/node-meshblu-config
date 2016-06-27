@@ -38,7 +38,7 @@ class MeshbluConfig
       secure:  process.env[@secure_env_name] && process.env[@secure_env_name] != 'false'
 
       privateKey: process.env[@private_key_env_name]
-      resolveSrv: process.env[@resolve_srv_env_name] == 'true'
+      resolveSrv: process.env[@resolve_srv_env_name] && process.env[@resolve_srv_env_name] == 'true'
     }, meshbluJSON
 
     return @compact meshbluJSON
