@@ -2,7 +2,8 @@ _ = require 'lodash'
 fs = require 'fs'
 
 class MeshbluConfig
-  constructor: (@auth={}, options={}) ->
+  constructor: (@auth={}, options={}, dependencies={}) ->
+    @env ?= dependencies.env ? process.env
     @filename = options.filename ? './meshblu.json'
 
     @uuid_env_name = options.uuid_env_name ? 'MESHBLU_UUID'
@@ -26,19 +27,19 @@ class MeshbluConfig
     try meshbluJSON = @parseMeshbluJSON()
 
     meshbluJSON = _.defaults @auth, {
-      uuid:  process.env[@uuid_env_name]
-      token: process.env[@token_env_name]
+      uuid:  @env[@uuid_env_name]
+      token: @env[@token_env_name]
 
-      protocol: process.env[@protocol_env_name]
-      hostname: process.env[@hostname_env_name]
-      port:     process.env[@port_env_name]
+      protocol: @env[@protocol_env_name]
+      hostname: @env[@hostname_env_name]
+      port:     @env[@port_env_name]
 
-      service: process.env[@service_env_name]
-      domain:  process.env[@domain_env_name]
-      secure:  process.env[@secure_env_name] && process.env[@secure_env_name] != 'false'
+      service: @env[@service_env_name]
+      domain:  @env[@domain_env_name]
+      secure:  @env[@secure_env_name] && @env[@secure_env_name] != 'false'
 
-      privateKey: process.env[@private_key_env_name]
-      resolveSrv: process.env[@resolve_srv_env_name] && process.env[@resolve_srv_env_name] == 'true'
+      privateKey: @env[@private_key_env_name]
+      resolveSrv: @env[@resolve_srv_env_name] && @env[@resolve_srv_env_name] == 'true'
     }, meshbluJSON
 
     return @compact meshbluJSON
