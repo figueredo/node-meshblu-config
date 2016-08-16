@@ -6,7 +6,7 @@ describe 'MeshbluConfig', ->
   describe 'toJSON->', ->
     describe 'passing in a filename', ->
       beforeEach ->
-        @sut = new MeshbluConfig {}, filename: path.join(__dirname, 'sample-meshblu.json')
+        @sut = new MeshbluConfig filename: path.join(__dirname, 'sample-meshblu.json')
         @result = @sut.toJSON()
 
       it 'should set the hostname', ->
@@ -26,7 +26,7 @@ describe 'MeshbluConfig', ->
 
     describe 'passing in a uuid and token, and a file', ->
       beforeEach ->
-        sut = new MeshbluConfig {uuid: 'better-uuid', token: 'better-token'}, filename: path.join(__dirname, 'sample-meshblu.json')
+        sut = new MeshbluConfig auth: {uuid: 'better-uuid', token: 'better-token'}, filename: path.join(__dirname, 'sample-meshblu.json')
         @result = sut.toJSON()
 
       it 'should set the defaults from the file, but keep values from the constructor', ->

@@ -2,8 +2,9 @@ _ = require 'lodash'
 fs = require 'fs'
 
 class MeshbluConfig
-  constructor: (@auth={}, options={}, dependencies={}) ->
+  constructor: (options={}, dependencies={}) ->
     @env ?= dependencies.env ? process.env
+    @auth = options.auth ? {}
     @filename = options.filename ? './meshblu.json'
 
     @uuid_env_name = options.uuid_env_name ? 'MESHBLU_UUID'
