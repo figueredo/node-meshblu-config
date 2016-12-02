@@ -1,5 +1,6 @@
 _ = require 'lodash'
 fs = require 'fs'
+Encryption = require 'meshblu-encryption'
 
 class MeshbluConfig
   constructor: (options={}, dependencies={}) ->
@@ -39,11 +40,16 @@ class MeshbluConfig
       domain:  @env[@domain_env_name]
       secure:  @env[@secure_env_name] && @env[@secure_env_name] != 'false'
 
-      privateKey: @env[@private_key_env_name]
+      privateKey: @_getPrivateKey()
       resolveSrv: @env[@resolve_srv_env_name] && @env[@resolve_srv_env_name] == 'true'
     }, meshbluJSON
 
     return @compact meshbluJSON
+
+
+  _getPrivateKey: =>
+    return unless @env[@private_key_env_name]?
+    Encryption.fromJustGuess(@env[@private_key_env_name]).toPem()
 
   compact: (obj) =>
     compactedObj = {}

@@ -1,6 +1,6 @@
 {
   "name": "meshblu-config",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Meshblu Config from environment or JSON file",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,8 @@
   "homepage": "https://github.com/octoblu/meshblu-config",
   "dependencies": {
     "coffee-script": "^1.9.2",
-    "lodash": "^3.9.1"
+    "lodash": "^3.9.1",
+    "meshblu-encryption": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^3.2.0",
