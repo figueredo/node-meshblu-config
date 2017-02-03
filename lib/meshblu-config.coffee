@@ -7,6 +7,7 @@ class MeshbluConfig
     @env ?= dependencies.env ? process.env
     @auth = options.auth ? {}
     @filename = options.filename ? './meshblu.json'
+    @serviceName = options.serviceName
 
     @uuid_env_name = options.uuid_env_name ? 'MESHBLU_UUID'
     @token_env_name = options.token_env_name ? 'MESHBLU_TOKEN'
@@ -22,15 +23,20 @@ class MeshbluConfig
     @private_key_env_name = options.private_key_env_name ? 'MESHBLU_PRIVATE_KEY'
     @resolve_srv_env_name = options.private_key_env_name ? 'MESHBLU_RESOLVE_SRV'
 
+    @service_name_env_name = options.service_name_env_name ? 'MESHBLU_SERVICE_NAME'
+
   parseMeshbluJSON: ->
     JSON.parse fs.readFileSync @filename
 
   toJSON: =>
     try meshbluJSON = @parseMeshbluJSON()
 
-    meshbluJSON = _.defaults @auth, {
+    defaultOptions = _.defaults @auth, { @serviceName }
+    meshbluJSON = _.defaults defaultOptions, {
       uuid:  @env[@uuid_env_name]
       token: @env[@token_env_name]
+
+      serviceName: @env[@service_name_env_name]
 
       protocol: @env[@protocol_env_name]
       hostname: @env[@hostname_env_name]
@@ -45,7 +51,6 @@ class MeshbluConfig
     }, meshbluJSON
 
     return @compact meshbluJSON
-
 
   _getPrivateKey: =>
     return unless @env[@private_key_env_name]?

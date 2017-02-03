@@ -34,3 +34,21 @@ describe 'MeshbluConfig', ->
           port: '3000'
           uuid: 'better-uuid'
           token: 'better-token'
+
+    describe 'serviceName from option', ->
+      beforeEach ->
+        sut = new MeshbluConfig serviceName: 'my-service'
+        @result = sut.toJSON()
+
+      it 'should set the defaults from the file, but keep values from the constructor', ->
+        expect(@result).to.containSubset
+          serviceName: 'my-service'
+
+    describe 'serviceName from env', ->
+      beforeEach ->
+        sut = new MeshbluConfig {}, env: 'MESHBLU_SERVICE_NAME': 'my-env-service'
+        @result = sut.toJSON()
+
+      it 'should set the defaults from the file, but keep values from the constructor', ->
+        expect(@result).to.containSubset
+          serviceName: 'my-env-service'
