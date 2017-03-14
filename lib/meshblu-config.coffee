@@ -3,66 +3,77 @@ fs = require 'fs'
 Encryption = require 'meshblu-encryption'
 
 class MeshbluConfig
-  constructor: (options={}, dependencies={}) ->
-    @env ?= dependencies.env ? process.env
-    @auth = options.auth ? {}
-    @filename = options.filename ? './meshblu.json'
-    @serviceName = options.serviceName
 
-    @uuid_env_name = options.uuid_env_name ? 'MESHBLU_UUID'
-    @token_env_name = options.token_env_name ? 'MESHBLU_TOKEN'
-
-    @protocol_env_name = options.protocol_env_name ? 'MESHBLU_PROTOCOL'
-    @hostname_env_name = options.hostname_env_name ? 'MESHBLU_HOSTNAME'
-    @port_env_name = options.port_env_name ? 'MESHBLU_PORT'
-
-    @service_env_name = options.service_env_name ? 'MESHBLU_SERVICE'
-    @domain_env_name  = options.domain_env_name  ? 'MESHBLU_DOMAIN'
-    @secure_env_name  = options.secure_env_name  ? 'MESHBLU_SECURE'
-
-    @private_key_env_name = options.private_key_env_name ? 'MESHBLU_PRIVATE_KEY'
-    @resolve_srv_env_name = options.private_key_env_name ? 'MESHBLU_RESOLVE_SRV'
-
-    @service_name_env_name = options.service_name_env_name ? 'MESHBLU_SERVICE_NAME'
-
-  parseMeshbluJSON: ->
-    JSON.parse fs.readFileSync @filename
+  constructor: (@_options) ->
+    _.defaults @, @toJSON()
 
   toJSON: =>
-    try meshbluJSON = @parseMeshbluJSON()
+    return @constructor.toJSON @_options
 
-    defaultOptions = _.defaults @auth, { @serviceName }
-    meshbluJSON = _.defaults defaultOptions, {
-      uuid:  @env[@uuid_env_name]
-      token: @env[@token_env_name]
+  @toJSON: (options) ->
+    options = @_getOptionsWithDefaults options
+    {auth, serviceName} = options
+    envJSON = @_getEnvJSON options
+    try meshbluJSON = @_parseMeshbluJSON options
+    json = _.defaults {}, auth, { serviceName }, envJSON, meshbluJSON
+    return @_compact json
 
-      serviceName: @env[@service_name_env_name]
+  @_getOptionsWithDefaults: (options) ->
+    return _.defaults {}, options, {
+      env                   : process.env
+      auth                  : {}
+      filename              : './meshblu.json'
 
-      protocol: @env[@protocol_env_name]
-      hostname: @env[@hostname_env_name]
-      port:     @env[@port_env_name]
+      uuid_env_name         : 'MESHBLU_UUID'
+      token_env_name        : 'MESHBLU_TOKEN'
 
-      service: @env[@service_env_name]
-      domain:  @env[@domain_env_name]
-      secure:  @env[@secure_env_name] && @env[@secure_env_name] != 'false'
+      protocol_env_name     : 'MESHBLU_PROTOCOL'
+      hostname_env_name     : 'MESHBLU_HOSTNAME'
+      port_env_name         : 'MESHBLU_PORT'
 
-      privateKey: @_getPrivateKey()
-      resolveSrv: @env[@resolve_srv_env_name] && @env[@resolve_srv_env_name] == 'true'
-    }, meshbluJSON
+      service_env_name      : 'MESHBLU_SERVICE'
+      domain_env_name       : 'MESHBLU_DOMAIN'
+      secure_env_name       : 'MESHBLU_SECURE'
 
-    return @compact meshbluJSON
+      private_key_env_name  : 'MESHBLU_PRIVATE_KEY'
+      resolve_srv_env_name  : 'MESHBLU_RESOLVE_SRV'
 
-  _getPrivateKey: =>
-    return unless @env[@private_key_env_name]?
-    Encryption.fromJustGuess(@env[@private_key_env_name]).toPem()
+      service_name_env_name : 'MESHBLU_SERVICE_NAME'
+    }
 
-  compact: (obj) =>
+  @_parseMeshbluJSON: ({filename}) ->
+    return JSON.parse fs.readFileSync filename
+
+  @_getEnvJSON: (options={}) ->
+    { env } = options
+    return {} unless env?
+    return {
+      uuid       : env[ options.uuid_env_name ]
+      token      : env[ options.token_env_name ]
+
+      serviceName: env[ options.service_name_env_name ]
+
+      protocol   : env[ options.protocol_env_name ]
+      hostname   : env[ options.hostname_env_name ]
+      port       : env[ options.port_env_name ]
+
+      service    : env[ options.service_env_name ]
+      domain     : env[ options.domain_env_name ]
+      secure     : env[ options.secure_env_name ] && env[ options.secure_env_name ] != 'false'
+
+      privateKey : @_getPrivateKey options
+      resolveSrv : env[ options.resolve_srv_env_name ] && env[ options.resolve_srv_env_name ] == 'true'
+    }
+
+  @_getPrivateKey: (options={}) ->
+    return unless options.env[options.private_key_env_name]?
+    return Encryption.fromJustGuess(options.env[options.private_key_env_name]).toPem()
+
+  @_compact: (obj) ->
     compactedObj = {}
-
     _.each obj, (value, key) =>
       compactedObj[key] = value if value?
       compactedObj[key] = value.trim() if value?.trim?
-
-    compactedObj
+    return compactedObj
 
 module.exports = MeshbluConfig

@@ -24,31 +24,48 @@ describe 'MeshbluConfig', ->
         expect(@result.protocol).not.to.exist
         expect(@result).not.to.have.key 'protocol'
 
-    describe 'passing in a uuid and token, and a file', ->
+    describe 'passing in a uuid, token, and a file', ->
       beforeEach ->
-        sut = new MeshbluConfig auth: {uuid: 'better-uuid', token: 'better-token'}, filename: path.join(__dirname, 'sample-meshblu.json')
-        @result = sut.toJSON()
+        @options = auth: {uuid: 'better-uuid', token: 'better-token'}, filename: path.join(__dirname, 'sample-meshblu.json')
+        @expected =
+          uuid    : 'better-uuid'
+          token   : 'better-token'
+          hostname: 'localhost'
+          protocol: 'http'
+          port    : '3000'
 
-      it 'should set the defaults from the file, but keep values from the constructor', ->
-        expect(@result).to.containSubset
-          port: '3000'
-          uuid: 'better-uuid'
-          token: 'better-token'
+      describe 'new up a MeshbluConfig object and comparing with toJSON', ->
+        beforeEach ->
+          @sut    = new MeshbluConfig @options
+          @result = @sut.toJSON()
+
+        it 'should set the defaults from the file, but keep values from the constructor', ->
+          expect(@result).to.containSubset @expected
+
+        it 'should set the toJSON properties on the object', ->
+          expect(@sut).to.containSubset @expected
+
+      describe 'calling static toJSON with options', ->
+        beforeEach ->
+          @result = MeshbluConfig.toJSON @options
+
+        it 'should set the defaults from the file, but keep values from the constructor', ->
+          expect(@result).to.containSubset @expected
 
     describe 'serviceName from option', ->
       beforeEach ->
         sut = new MeshbluConfig serviceName: 'my-service'
         @result = sut.toJSON()
 
-      it 'should set the defaults from the file, but keep values from the constructor', ->
+      it 'should set serviceName on result', ->
         expect(@result).to.containSubset
           serviceName: 'my-service'
 
     describe 'serviceName from env', ->
       beforeEach ->
-        sut = new MeshbluConfig {}, env: 'MESHBLU_SERVICE_NAME': 'my-env-service'
+        sut = new MeshbluConfig {env: 'MESHBLU_SERVICE_NAME': 'my-env-service'}
         @result = sut.toJSON()
 
-      it 'should set the defaults from the file, but keep values from the constructor', ->
+      it 'should set serviceName on result', ->
         expect(@result).to.containSubset
           serviceName: 'my-env-service'
