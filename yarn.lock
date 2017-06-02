@@ -44,7 +44,7 @@ check-error@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
 
-coffee-script@^1.10.0, coffee-script@^1.12.6:
+coffee-script@^1.12.6:
   version "1.12.6"
   resolved "https://registry.yarnpkg.com/coffee-script/-/coffee-script-1.12.6.tgz#285a3f7115689065064d6bf9ef4572db66695cbf"
 
@@ -189,13 +189,12 @@ lolex@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/lolex/-/lolex-1.6.0.tgz#3a9a0283452a47d7439e72731b9e07d7386e49f6"
 
-meshblu-encryption@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/meshblu-encryption/-/meshblu-encryption-2.0.1.tgz#84767397b78763732e93e6aa90633f848f3c77db"
+meshblu-encryption@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/meshblu-encryption/-/meshblu-encryption-3.0.1.tgz#490647a933973a2e8f4e3513b069b8ff487df510"
   dependencies:
-    coffee-script "^1.10.0"
     lodash "^4.6.1"
-    node-rsa "^0.3.2"
+    node-rsa "^0.4.2"
 
 minimatch@^3.0.2:
   version "3.0.4"
@@ -237,9 +236,9 @@ native-promise-only@^0.8.1:
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/native-promise-only/-/native-promise-only-0.8.1.tgz#20a318c30cb45f71fe7adfbf7b21c99c1472ef11"
 
-node-rsa@^0.3.2:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/node-rsa/-/node-rsa-0.3.4.tgz#0d13c73d3cbe3b3dc7457a81a2657f40e4426be6"
+node-rsa@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/node-rsa/-/node-rsa-0.4.2.tgz#d6391729ec16a830ed5a38042b3157d2d5d72530"
   dependencies:
     asn1 "0.2.3"
 

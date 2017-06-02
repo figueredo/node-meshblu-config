@@ -1,6 +1,6 @@
 {
   "name": "meshblu-config",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Meshblu Config from environment or JSON file",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
   "homepage": "https://github.com/octoblu/meshblu-config",
   "dependencies": {
     "lodash": "^4.17.4",
-    "meshblu-encryption": "^2.0.1"
+    "meshblu-encryption": "^3.0.1"
   },
   "devDependencies": {
     "chai": "^4.0.1",
