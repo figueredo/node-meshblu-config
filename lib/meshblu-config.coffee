@@ -1,5 +1,5 @@
-_ = require 'lodash'
-fs = require 'fs'
+_          = require 'lodash'
+fs         = require 'fs'
 Encryption = require 'meshblu-encryption'
 
 class MeshbluConfig

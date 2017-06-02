@@ -1,5 +1,5 @@
-path = require 'path'
-_    = require 'lodash'
+{describe,beforeEach,it,expect} = global
+path          = require 'path'
 MeshbluConfig = require '../lib/meshblu-config'
 
 describe 'MeshbluConfig', ->

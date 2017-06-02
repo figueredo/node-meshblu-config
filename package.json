@@ -1,9 +1,10 @@
 {
   "name": "meshblu-config",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "Meshblu Config from environment or JSON file",
   "main": "index.js",
   "scripts": {
+    "build": "coffee --map --compile lib/*.coffee",
     "test": "mocha"
   },
   "repository": {
@@ -20,16 +21,15 @@
   },
   "homepage": "https://github.com/octoblu/meshblu-config",
   "dependencies": {
-    "coffee-script": "^1.9.2",
-    "lodash": "^3.9.1",
+    "lodash": "^4.17.4",
     "meshblu-encryption": "^2.0.1"
   },
   "devDependencies": {
-    "chai": "^3.2.0",
-    "chai-subset": "^1.2.1",
-    "coffee-script": "^1.9.3",
-    "mocha": "^2.2.5",
-    "sinon": "^1.15.4",
-    "sinon-chai": "^2.8.0"
+    "chai": "^4.0.1",
+    "chai-subset": "^1.5.0",
+    "coffee-script": "^1.12.6",
+    "mocha": "^3.4.2",
+    "sinon": "^2.3.2",
+    "sinon-chai": "^2.10.0"
   }
 }
