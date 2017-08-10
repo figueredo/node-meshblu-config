@@ -33,6 +33,7 @@ var meshbluConfig = new MeshbluConfig({env: {"MESHBLU_UUID": "the-uuid"}})
 
 ### generate
 Parse the default file, environment, and data and return the combined configuration
+
 | Parameter | Type   | Required| Description                          |
 | ----------| -------| --------| -------------------------------------|
 | data       | object | no     | Data to process |
@@ -45,6 +46,7 @@ var data = meshbluConfig.generate()
 
 ### get
 Returns the current config
+
 | Parameter | Type   | Required| Description                          |
 | ----------| -------| --------| -------------------------------------|
 ------------------------------------------
@@ -54,6 +56,7 @@ var data = meshbluConfig.get();
 
 ### fromFile
 Loads any values from the JSON file into the config
+
 | Parameter | Type   | Required| Description                          |
 | ----------| -------| --------| -------------------------------------|
 | filename  | string | no     | JSON file to parse, defaults to ``./meshblu.json` |
@@ -65,6 +68,7 @@ var data = meshbluConfig.get();
 
 ### fromEnv
 Loads any values from the env
+
 | Parameter | Type   | Required| Description                          |
 | ----------| -------| --------| -------------------------------------|
 | env       | object | no     | Environment to use, defaults to `process.env` |
@@ -76,6 +80,7 @@ var data = meshbluConfig.get();
 
 ### fromData
 Loads any values from the env
+
 | Parameter | Type   | Required| Description                          |
 | ----------| -------| --------| -------------------------------------|
 | data      | object | yes    | Data to use |
