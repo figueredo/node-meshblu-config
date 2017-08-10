@@ -88,6 +88,8 @@ class MeshbluConfig {
     _.each(validatorMap, (validator, key) => {
       data[key] = validator(data[key])
     })
+    data = _.omitBy(data, _.isUndefined)
+    data = _.omitBy(data, _.isNull)
     this.config = _.defaults(data, this.config)
   }
 
@@ -142,7 +144,6 @@ class MeshbluConfig {
 
   generate(data) {
     data = _.clone(data || {})
-    console.log(this.defaultFilename, fs.existsSync(this.defaultFilename))
     if (fs.existsSync(this.defaultFilename)) this.loadFile(this.defaultFilename)
     this.loadEnv()
     this.loadData(data)

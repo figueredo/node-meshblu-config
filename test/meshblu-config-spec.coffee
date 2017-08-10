@@ -158,13 +158,14 @@ describe 'MeshbluConfig', ->
   describe 'generate', ->
     describe 'from all sources', ->
       beforeEach ->
-        data = resolveSrv: true
-        env = MESHBLU_SERVICE_NAME: 'service-name'
+        data = uuid: 'the-uuid'
+        env = MESHBLU_SERVICE_NAME: 'service-name', MESHBLU_RESOLVE_SRV: "true"
         filename = path.join(__dirname, 'sample-meshblu.json')
         @sut = new MeshbluConfig { env, defaultFilename: filename }
         @result = @sut.generate(data)
 
       it 'should set all the stuff', ->
+        expect(@result.uuid).to.equal 'the-uuid'
         expect(@result.resolveSrv).to.be.true
         expect(@result.serviceName).to.equal 'service-name'
         expect(@result.hostname).to.equal 'localhost'
